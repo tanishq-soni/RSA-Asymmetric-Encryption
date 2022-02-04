@@ -1,7 +1,7 @@
 const crypto = require("crypto");
 const fs = require('fs');
 
-//--------------------------------ENCRYPT-------------------------------------//
+//--------------------------------GENERATE KEYS-------------------------------------//
 
 const { publicKey, privateKey } = crypto.generateKeyPairSync("rsa", {
   modulusLength: 2048,
@@ -27,9 +27,9 @@ fs.writeFile('public_key.pem', public_key, err => {
   console.log('✅ Public Key');
 })
 
+//--------------------------------ENCRYPT DATA-------------------------------------//
 
 const data = "VERY VERY IMPORTANT DATA";
-
 
 const encryptedData = crypto.publicEncrypt(
     public_key,
@@ -45,7 +45,7 @@ fs.writeFile('encrypted_data.txt', enc_data, err => {
 
 
 
-//--------------------------------DECRYPT-------------------------------------//
+//--------------------------------DECRYPT DATA-------------------------------------//
 
 
 
