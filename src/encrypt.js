@@ -16,29 +16,30 @@ const { publicKey, privateKey } = crypto.generateKeyPairSync("rsa", {
   },
 });
 
-readline.question('\nenter your confidential data 🔐: ', data =>{
+readline.question('\n🔓 enter your confidential data : ', data =>{
   const private_key = privateKey;
   const public_key = publicKey;
 
-  fs.writeFile('../keys/private_key.pem', private_key, err => {
-    console.log('\n✅ Private Key');
-  })
-  fs.writeFile('../keys/public_key.pem', public_key, err => {
-    console.log('✅ Public Key');
-  })
   const encryptedData = crypto.publicEncrypt(
     public_key,
     Buffer.from(data)
   );
 
   const enc_data = encryptedData.toString('base64');
+  fs.writeFile('../keys/private_key.pem', private_key, err => {
+    console.log('\n🔑 Private Key Generated');
 
-  fs.writeFile('../data/encrypted_data.txt', enc_data, err => {
-    console.log('✅ Encrypt Data')
+    fs.writeFile('../keys/public_key.pem', public_key, err => {
+      console.log('🔑 Public Key Generated');
+
+      fs.writeFile('../data/encrypted_data.txt', enc_data, err => {
+        console.log('🔐 data encrypted')
+      })
+
+    })
   })
+
   readline.close()
+
 })
-
-//const data = "Confidential Data 🔐"; // Data to be Encrypted
-
 
